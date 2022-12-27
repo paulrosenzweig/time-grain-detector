@@ -20,6 +20,12 @@ const testCases = [
   { input: ['2000-01-01T00:00:00-1200', '2000-01-02T00:00:00-1200'], expected: { unit: 'day', count: 1 } },
   { input: ['2000-01-01T00:00:00+1200', '2000-02-01T00:00:00+1200'], expected: { unit: 'month', count: 1 } },
   { input: ['2000-01-01T00:00:00-1200', '2000-02-01T00:00:00-1200'], expected: { unit: 'month', count: 1 } },
+  { input: ['2000-01-01T00:00:00+1200', '2000-04-01T00:00:00+1200'], expected: { unit: 'quarter', count: 1 } },
+  { input: ['2000-01-01T00:00:00-1200', '2000-04-01T00:00:00-1200'], expected: { unit: 'quarter', count: 1 } },
+  { input: ['2000-01-01T00:00:00+1200', '2001-01-01T00:00:00+1200'], expected: { unit: 'year', count: 1 } },
+  { input: ['2000-01-01T00:00:00-1200', '2001-01-01T00:00:00-1200'], expected: { unit: 'year', count: 1 } },
+  { input: ['2000-01-01T00:00:00+1200', '2010-01-01T00:00:00+1200'], expected: { unit: 'year', count: 10 } },
+  { input: ['2000-01-01T00:00:00-1200', '2010-01-01T00:00:00-1200'], expected: { unit: 'year', count: 10 } },
   { input: ['2000-01-01T00:00+05:30', '2000-01-02T00:00+05:30'], expected: { unit: 'day', count: 1 } },
   // daylight savings
   { input: ['2022-03-13T05:00:00Z', '2022-03-14T04:00:00Z',], expected: { unit: 'day', count: 1 } },

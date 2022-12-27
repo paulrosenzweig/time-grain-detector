@@ -70,16 +70,19 @@ const grains = [
   },
   {
     grain: { unit: 'quarter', count: 1 },
-    isAligned: (dates) => dates.every(d => d.getUTCMonth() % 3 === 0)
+    // The reason for the three checks below is the same as the checks in month.
+    isAligned: (dates) => dates.every(d => d.getUTCMonth() % 3 === 0) ||
+      dates.every(d => nextDay(d).getUTCMonth() % 3 === 0) ||
+      dates.every(d => nextHour(d).getUTCMonth() % 3 === 0)
   },
+  // Years and decades don't need the third check because they are always looking at January 1st.
   {
     grain: { unit: 'year', count: 1 },
-    isAligned: (dates) => dates.every(d => d.getUTCMonth() === 0)
-
+    isAligned: (dates) => dates.every(d => d.getUTCMonth() === 0) || dates.every(d => nextDay(d).getUTCMonth() === 0)
   },
   {
     grain: { unit: 'year', count: 10 },
-    isAligned: (dates) => dates.every(d => d.getUTCFullYear() % 10 === 0)
+    isAligned: (dates) => dates.every(d => d.getUTCFullYear() % 10 === 0) || dates.every(d => nextDay(d).getUTCFullYear() % 10 === 0)
   },
   {
     // This empty grain exists so that we return the largest possible grain if all are aligned. 
@@ -87,7 +90,6 @@ const grains = [
   },
 ];
 
-// function to detect the time grain of a set of dates
 export default function detectTimeGrain(dateStrings) {
   const dates = dateStrings.map((ds) => {
     const d = new Date(ds)
@@ -97,20 +99,22 @@ export default function detectTimeGrain(dateStrings) {
     return d
   });
   const firstMismatch = grains.findIndex(g => !g.isAligned(dates))
-  // weeks are skippable, so if we find a mismatch with a week, we need to check if the next grain is aligned.
+  // Weeks are "skippable".
+  // If dates aren't spaced on week bondaries, they might still be aligned on a larger grain.
+  // We need to check if the other grains beyond week are aligned. If it is, we can skip week.
   const firstMismatchWithSkips = grains.findIndex(g => !g.isSkippable && !g.isAligned(dates));
   const mismatch = firstMismatchWithSkips > firstMismatch + 1 ? firstMismatchWithSkips : firstMismatch;
   return grains[mismatch - 1].grain;
 }
 
-// takes a date and returns a new date one day in the future
+// Takes a date and returns a new date one day in the future
 function nextDay(date) {
   const newDate = new Date(date);
   newDate.setUTCDate(newDate.getUTCDate() + 1);
   return newDate;
 }
 
-// takes a date and returns a new date one hour in the future
+// Takes a date and returns a new date one hour in the future
 function nextHour(date) {
   const newDate = new Date(date);
   newDate.setUTCHours(newDate.getUTCHours() + 1);
