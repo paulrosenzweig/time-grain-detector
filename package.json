@@ -1,6 +1,6 @@
 {
   "name": "time-grain-detector",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Infer time grain from a list of dates",
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest"

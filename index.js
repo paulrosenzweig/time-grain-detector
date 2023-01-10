@@ -69,7 +69,7 @@ const grains = [
       dates.every(d => nextHour(d).getUTCDate() === 1)
   },
   {
-    grain: { unit: 'quarter', count: 1 },
+    grain: { unit: 'month', count: 3 },
     // The reason for the three checks below is the same as the checks in month.
     isAligned: (dates) => dates.every(d => d.getUTCMonth() % 3 === 0) ||
       dates.every(d => nextDay(d).getUTCMonth() % 3 === 0) ||
