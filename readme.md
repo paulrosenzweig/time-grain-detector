@@ -28,8 +28,8 @@ The results from that query might look like this.
 ```json
 [
     {"date": "1999-10-01", "revenue": 100},
-    {"date": "1999-11-01", "revenue": 1000},
-    {"date": "1999-12-01", "revenue": 10000},
+    {"date": "1999-11-01", "revenue": 200},
+    {"date": "1999-12-01", "revenue": 300},
 ]
 ```
 
@@ -37,11 +37,11 @@ When you go to visualize the data, you might not know that `'month'` was used in
 If you want to draw a bar chart of this data with a continuous temporal axis,
 you'll need to know that the bars are one month wide.
 
-[example of that]
+<img src="https://user-images.githubusercontent.com/691495/211659079-7711061f-9d49-44de-8cef-048e2b2c47b2.png" width="60%" />
 
 Incorrectly thinking it's daily data would lead to really skinny bars that are a month apart from eachother.
 
-[example of that]
+<img src="https://user-images.githubusercontent.com/691495/211658947-a73b4a5a-0679-44ab-8fa6-89868872f3e2.png" width="60%" />
 
 Knowing the grain is also helpful for imputing missing data and generating reasonable ticks/labels.
 
