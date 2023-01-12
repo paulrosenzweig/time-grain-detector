@@ -91,8 +91,8 @@ The timestamp `2000-06-11T12:00:00Z` looks like it doesn't fall on the boundary 
 This library tries to be generous. If a series of timestamps all could fall on a boundary in _some_ timezone, it considers that boundary a valid grain. We can't do this perfectly without a database of timezones, but we can be slightly more permissive than reality and still perform well on real data.
 
 e.g. when checking for date alignment:
-`["2000-01-01T23:00:00Z", "2000-01-02T23:00:00Z", "2000-01-03T23:00:00Z"]` ✅ These work somewhere.
-`["2000-01-01T23:00:00Z", "2000-01-02T22:00:00Z", "2000-01-03T21:00:00Z"]` ❌ These don't.
+- `["2000-01-01T23:00:00Z", "2000-01-02T23:00:00Z", "2000-01-03T23:00:00Z"]` ✅ These work somewhere.
+- `["2000-01-01T23:00:00Z", "2000-01-02T22:00:00Z", "2000-01-03T21:00:00Z"]` ❌ These don't.
 
 #### Implementation Note
 
