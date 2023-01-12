@@ -1,12 +1,16 @@
 {
   "name": "time-grain-detector",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Infer time grain from a list of dates",
   "scripts": {
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
+    "build-cjs": "./node_modules/.bin/esbuild index.js --format=cjs --outfile=dist/commonjs.cjs"
   },
   "type": "module",
-  "exports": "./index.js",
+  "exports": {
+    "import": "./index.js",
+    "require": "./dist/commonjs.cjs"
+  },
   "keywords": [
     "date",
     "time",
@@ -17,6 +21,7 @@
   "author": "Paul Rosenzweig",
   "license": "ISC",
   "devDependencies": {
+    "esbuild": "^0.16.17",
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2",
